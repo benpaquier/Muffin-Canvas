@@ -5,8 +5,12 @@ const GET_ALL_COLLECTIONS_WITH_PRODUCTS = gql`
     collections(first: 100) {
       edges {
         node {
+          title
           id
           description
+          image {
+            url
+          }
           products(first: 100) {
             edges {
               node {
@@ -32,6 +36,10 @@ const GET_PRODUCTS_OF_COLLECTION = gql`
   query getProductsOfCollection($id: ID!) {
     collection(id: $id) {
       title
+      description
+      image {
+        url
+      }
       products(first: 100) {
         edges {
           node {
@@ -57,6 +65,18 @@ const GET_PRODUCT_INFOS = gql`
     product(id: $id) {
       title
       description
+      variants(first: 100) {
+        edges {
+          node {
+            id
+            title
+            price {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
       images(first: 1) {
         edges {
           node {
